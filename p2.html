@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formular de Validare</title>
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formular de Validare</h2>
+    <form id="myForm">
+        <label for="name">Nume:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="dob">Data Nașterii:</label>
+        <input type="date" id="dob" name="dob"><br><br>
+
+        <label for="age">Vârsta:</label>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="email">Adresă de E-mail:</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <input type="button" value="Trimite" onclick="validateForm()">
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var dob = document.getElementById('dob').value;
+            var age = document.getElementById('age').value;
+            var email = document.getElementById('email').value;
+
+            var isValid = true;
+            var errorMessage = "";
+
+            // Validare nume
+            if (name.trim() === "") {
+                isValid = false;
+                document.getElementById('name').classList.add('error');
+            } else {
+                document.getElementById('name').classList.remove('error');
+            }
+            // Validare data de nastere
+            if (dob.trim() === "") {
+                isValid = false;
+                document.getElementById('dob').classList.add('error');
+            } else {
+                document.getElementById('dob').classList.remove('error');
+            }
+
+            // Validare varsta
+            if (isNaN(age) || age <= 0) {
+                isValid = false;
+                document.getElementById('age').classList.add('error');
+            } else {
+                document.getElementById('age').classList.remove('error');
+            }
+
+            // Validare adresa de email
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                isValid = false;
+                document.getElementById('email').classList.add('error');
+            } else {
+                document.getElementById('email').classList.remove('error');
+            }
+
+            if (isValid) {
+                document.getElementById('message').innerText = "Datele sunt completate corect.";
+            } else {
+                document.getElementById('message').innerText = "Campurile nu sunt completate corect.";
+            }
+        }
+    </script>
+</body>
+</html>
